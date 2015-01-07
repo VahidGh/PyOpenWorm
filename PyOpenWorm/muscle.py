@@ -19,6 +19,8 @@ import csv
 
 class Muscle:
 
+	def __init__(self, name):
+		self._name = name
 
 	def name(self):
 		"""Get name of this muscle
@@ -28,7 +30,7 @@ class Muscle:
 		"""
 		return self._name
 
-	def receptors(self):
+	def _receptors(self):
 		"""Get receptors associated with this muscle
 			
 		:returns: a list of all known receptors

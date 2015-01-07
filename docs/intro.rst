@@ -16,7 +16,7 @@ Basic Usage
   >>>import openworm
   
   # Grabs the representation of the neuronal network
-  >>>net = PyOpenWorm.Network()
+  >>>net = PyOpenWorm.Worm().get_neuron_network()
   >>>net.aneuron('AVAL').type()
   Interneuron
   #show how many gap junctions go in and out of AVAL
@@ -48,15 +48,17 @@ Returns the list of all neurons::
   
 Returns the list of all muscles::
 
-  >>>'MDL08' in net.muscles()
+  >>>'MDL08' in PyOpenWorm.Worm().muscles()
   True
 
-Returns all known receptors for individual muscles::
+Returns provenance information providing evidence about facts::
 
-  >>>muscle = PyOpenWorm.Muscle('MDL08')
-  >>>muscle.receptors()
-  ['ENC-68', 'EGL-19', 'SLO-2']
-
+  >>>ader = PyOpenWorm.Neuron('ADER')
+  >>>ader.receptors()
+  ['ACR-16', 'TYRA-3', 'DOP-2', 'EXP-1']
+  #look up what reference says this neuron has a receptor EXP-1
+  >>>ader.get_reference(0,'EXP-1')
+  ['http://dx.doi.org/10.100.123/natneuro']
 
 Returns the c. elegans connectome represented as a 
 `NetworkX <http://networkx.github.io/documentation/latest/>`_ graph::

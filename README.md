@@ -1,12 +1,16 @@
+[![Build Status](https://travis-ci.org/openworm/PyOpenWorm.png?branch=master)](https://travis-ci.org/openworm/PyOpenWorm)
+
 PyOpenWorm
 ===========
 
-Unified data access library for data about the c. elegans anatomy and model for the OpenWorm project
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/openworm/PyOpenWorm?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+Unified data access library for data about the *C. elegans* anatomy and model for the OpenWorm project.
 
 What does it do?
 ----------------
 
-Allows asking various questions about the c. elegans nervous system.
+Allows asking various questions about the *C. elegans* nervous system.
 
 Basic Usage
 -----------
@@ -15,7 +19,7 @@ Basic Usage
   >>>import openworm
   
   # Grabs the representation of the neuronal network
-  >>>net = PyOpenWorm.Network()
+  >>>net = PyOpenWorm.Worm().get_neuron_network()
   >>>net.aneuron('AVAL').type()
   Interneuron
   #show how many gap junctions go in and out of AVAL
@@ -54,16 +58,20 @@ Returns the list of all neurons::
 Returns the list of all muscles::
 
 ```python
-  >>>'MDL08' in net.muscles()
+  >>>'MDL08' in PyOpenWorm.Worm().muscles()
   True
 ```
 
-Returns all known receptors for individual muscles::
+
+Returns provenance information providing evidence about facts::
 
 ```python
-  >>>muscle = PyOpenWorm.Muscle('MDL08')
-  >>>muscle.receptors()
-  ['ENC-68', 'EGL-19', 'SLO-2']
+  >>>ader = PyOpenWorm.Neuron('ADER')
+  >>>ader.receptors()
+  ['ACR-16', 'TYRA-3', 'DOP-2', 'EXP-1']
+  #look up what reference says this neuron has a receptor EXP-1
+  >>>ader.get_reference(0,'EXP-1')
+  ['http://dx.doi.org/10.100.123/natneuro']
 ```
 
 Returns the c. elegans connectome represented as a [NetworkX](http://networkx.github.io/documentation/latest/) graph::
@@ -102,6 +110,12 @@ ion channels, etc and so should our code.
 
 Installation
 ------------
+
+From PyPi using [pip](http://pip.readthedocs.org/en/latest/installing.html):
+
+    pip install pyopenworm --pre
+    
+From source:
 
     git clone https://github.com/slarson/PyOpenWorm.git
     cd PyOpenWorm

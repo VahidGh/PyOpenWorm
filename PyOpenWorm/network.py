@@ -2,16 +2,16 @@
 """
 .. class:: Network
 
-   This module contains the class that defines the network
+   This module contains the class that defines the neuronal network
 
 """
 
 import sqlite3
 from rdflib import Graph
 from rdflib import Namespace
-from rdflib.namespace import RDF, RDFS
-from rdflib import URIRef, BNode, Literal
-import urllib, urllib2
+from rdflib.namespace import RDFS
+from rdflib import Literal
+import urllib2
 import PyOpenWorm
 import networkx as nx
 import csv
@@ -57,29 +57,6 @@ class Network:
 			neurons.append(str(r[0]))
 			
 		return neurons
-		
-	def muscles(self):
-		"""
-		Get all muscles by name
-			
-		:returns: A list of all muscle names
-		:rtype: list
-		"""
-		if (self.semantic_net == ''):
-			self._init_semantic_net()
-	
-		qres = self.semantic_net.query(
-		  """SELECT ?subLabel     #we want to get out the labels associated with the objects
-		   WHERE {
-			  ?subject <http://openworm.org/entities/1515> <http://openworm.org/entities/1519> .# match all subjects that have the 'is a' (1515) property pointing to 'muscle' (1519)
-			  ?subject rdfs:label ?subLabel  #for the subject, look up their plain text label.
-			}""")       
-	
-		muscles = []
-		for r in qres.result:
-			muscles.append(str(r[0]))
-			
-		return muscles
 	
 	def as_networkx(self):
 		"""
